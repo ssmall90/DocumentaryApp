@@ -10,7 +10,7 @@
    public  string MovieRunTime { get; set; }
    public int MovieRating { get; set; }
    public  string MovieDescription { get; set; }
-   public CategoryModel MovieCategory { get; set; }
+   public string MovieCategory { get; set; }
    public bool HasUserWatched { get; set; } = false;
 
 }
