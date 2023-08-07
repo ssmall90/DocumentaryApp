@@ -41,7 +41,7 @@ public class MongoDocumentaryMovieData : IMongoDocumentaryMovieData
       _cache.Remove(cacheName);
    }
 
-   public async Task<List<DocumentaryMovieModel>> GetThreeDocumentariesByCategory(CategoryModel category)
+   public async Task<List<DocumentaryMovieModel>> GetThreeDocumentariesByCategory(string category)
    {
       var results = await _documentaries.FindAsync(m => m.MovieCategory == category);
       var output = results.ToList();
@@ -50,6 +50,11 @@ public class MongoDocumentaryMovieData : IMongoDocumentaryMovieData
 
       return output.OrderBy(x => random.Next()).Take(3).ToList();
 
+   }
+
+   public Task CreateDocumentary(DocumentaryMovieModel documentary)
+   {
+      return _documentaries.InsertOneAsync(documentary);
    }
 
 }
