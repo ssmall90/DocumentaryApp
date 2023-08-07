@@ -1,0 +1,172 @@
+﻿@page "/SampleData"
+@inject IMongoCategoryData categoryData
+@inject IMongoUserData userData
+@inject IMongoDocumentaryMovieData documentaryData
+
+<h3>SampleData</h3>
+
+@if (categoriesCreated)
+{
+    <h4>Categories Have Been Created</h4>
+}
+else
+{
+    <button class="btn btn-primary" @onclick="CreateCategories">Create Categories</button>
+}
+
+@if (documentariesCreated)
+{
+    <h4>Documentaries Have Been Created</h4>
+}
+else
+{
+    <button class="btn btn-primary" @onclick="CreateDocumentary">Create Documentaries</button>
+}
+
+<button class="btn btn-danger" @onclick="GenerateSampleData">Generate Sample Data</button>
+
+
+
+
+@code {
+
+    private bool categoriesCreated = false;
+    private bool documentariesCreated = false;
+
+    private async Task CreateCategories()
+    {
+        var categories = await categoryData.GetAllCategories();
+
+        if(categories?.Count > 0)
+        {
+            return;
+        }
+
+        CategoryModel cat = new()
+            {
+                CategoryName = "Conspiracies",
+                CategoryDescription = "Documentaries Based On Conspiracy Theories."
+            };
+        await categoryData.CreateCategory(cat);
+
+        cat = new()
+            {
+                CategoryName = "Health",
+                CategoryDescription = "Health Related Documentaries."
+            };
+        await categoryData.CreateCategory(cat);
+
+        cat = new()
+            {
+                CategoryName = "History",
+                CategoryDescription = "History Related Documentaries."
+            };
+        await categoryData.CreateCategory(cat);
+
+        cat = new()
+            {
+                CategoryName = "War",
+                CategoryDescription = "War and Military Related Documentaries."
+            };
+
+        await categoryData.CreateCategory(cat);
+
+        cat = new()
+            {
+                CategoryName = "Science",
+                CategoryDescription = "Science Related Documentaries."
+            };
+
+        await categoryData.CreateCategory(cat);
+
+        categoriesCreated = true;
+    }
+
+    private async Task CreateDocumentary()
+    {
+        var documentaries = await documentaryData.GetAllDocumentarires();
+
+        if (documentaries?.Count > 0)
+        {
+            return;
+        }
+
+        DocumentaryMovieModel doc = new()
+            {
+                MovieName = "911",
+                MovieCategory = "Conspiracies",
+                MovieRating = 89,
+                MovieRunTime = "100 minutes",
+                MovieYear = "2023",
+                MovieDescription = "A documentary about the conspiracies surrounding 911"
+            };
+        await documentaryData.CreateDocumentary(doc);
+
+        doc = new()
+            {
+                MovieName = "What The Health",
+                MovieCategory = "Health",
+                MovieRating = 66,
+                MovieRunTime = "120 minutes",
+                MovieYear = "2022",
+                MovieDescription = "A documentary about the the effects of food on health"
+            };
+        await documentaryData.CreateDocumentary(doc);
+
+        doc = new()
+            {
+                MovieName = "The Rise of the British Empire",
+                MovieCategory = "History",
+                MovieRating = 54,
+                MovieRunTime = "150 minutes",
+                MovieYear = "2012",
+                MovieDescription = "A documentary about the british empire"
+            };
+        await documentaryData.CreateDocumentary(doc);
+
+        doc = new()
+            {
+                MovieName = "WW2 In Colour",
+                MovieCategory = "War",
+                MovieRating = 92,
+                MovieRunTime = "188 minutes",
+                MovieYear = "2023",
+                MovieDescription = "A documentary about World War 2"
+            };
+        await documentaryData.CreateDocumentary(doc);
+
+        doc = new()
+            {
+                MovieName = "Our Planet",
+                MovieCategory = "Science",
+                MovieRating = 77,
+                MovieRunTime = "109 minutes",
+                MovieYear = "2013",
+                MovieDescription = "A documentary about planet earth"
+            };
+        await documentaryData.CreateDocumentary(doc);
+
+        documentariesCreated = true;
+    }
+
+    private async Task GenerateSampleData()
+    {
+        UserModel user = new()
+            {
+                FirstName = "Sheldon",
+                LastName = "Small",
+                EmailAddress = "Sheldon@test.com",
+                DisplayName = "SampleSheldon",
+                ObjectIdentifier = "abc-123"
+
+            };
+
+        await userData.CreateUser(user);
+
+        var foundUser = await userData.GetUserFromAuthentication("abc-123");
+        var categories = await categoryData.GetAllCategories();
+        var documentaires = await documentaryData.GetAllDocumentarires();
+
+    }
+}
+

@@ -1,10 +1,14 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>24ac3d24-8141-4568-8562-af7c84e1ecc9</UserSecretsId>
   </PropertyGroup>
+
+  <!--<ItemGroup>
+    <Content Remove="Pages\SampleData.razor" />
+  </ItemGroup>-->
 
   <ItemGroup>
     <Folder Include="Components\" />
@@ -19,6 +23,18 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DocumentaryAppLibrary\DocumentaryAppLibrary.csproj" />
+  </ItemGroup>
+
+  <!--<ItemGroup>
+    <UpToDateCheckInput Remove="Pages\SampleData.razor" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Pages\SampleData.razor" />
+  </ItemGroup>-->
+
+  <ItemGroup>
+    <None Include="Pages\SampleData.razor" />
   </ItemGroup>
 
 </Project>
