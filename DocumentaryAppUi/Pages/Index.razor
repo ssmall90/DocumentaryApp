@@ -1,8 +1,59 @@
 ﻿@page "/"
+@using DocumentaryAppLibrary
+@using DocumentaryAppUi
+@using System.Text.Json;
+@inject ITmdbService TmdbService
 
-<PageTitle>Index</PageTitle>
+<h1>Popular Movies</h1>
 
-<h1>Hello, world!</h1>
+<div>
+    <button class="btn btn-primary" @onclick="GenerateMovies">Generate Movies</button>
+</div>
 
-Welcome to your new app.
+@if (movies != null)
+{
+    <ul>
+        @foreach (var movie in movies.Results)
+        {
+            <div>
+                <h2>Title</h2>
+                <div>
+                    <h5>@movie.title</h5>
+                    <img src="@movie.FullPosterPath"/>
+                </div>
+                
+            </div>
+            <div>
+                <div>
+                    <h2>Description</h2>
+                    <p>@movie.overview</p>
+                </div>
+            </div>
+            <div>
+                <h2>Release Date</h2>
+                <p>@movie.release_date</p>
+            </div>
+            <div>
+                <h2>Rating</h2>
+                <p>@movie.vote_average</p>
+            </div>
+            
+        }
+    </ul>
+}
+else
+{
+    <div>
+        <h2>Press Button To Get Your Documentaries</h2>
+    </div>
+}
 
+@code {
+    MovieResponse movies;
+
+    private async Task GenerateMovies()
+    {
+        movies = await TmdbService.GetPopularMoviesAsync();
+    }
+
+}
