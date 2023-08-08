@@ -13,6 +13,8 @@ public static class RegisterServices
       builder.Services.AddSingleton<IMongoCategoryData, MongoCategoryData>();
       builder.Services.AddSingleton<IMongoDocumentaryMovieData, MongoDocumentaryMovieData>();
       builder.Services.AddSingleton<IMongoUserData, MongoUserData>();
+      builder.Services.AddScoped<ITmdbService, TmdbService>();
+      builder.Services.AddHttpClient();
    }
 
 }
