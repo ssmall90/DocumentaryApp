@@ -7,6 +7,7 @@ public class TmdbService : ITmdbService
 {
    private readonly HttpClient _httpClient;
    private const string ApiKey = "8ad7b69946f794a837063ddaca7740d1";
+   MovieResponse movieResponse;
    Random randomizer = new Random();
 
    public TmdbService(HttpClient httpClient)
@@ -23,12 +24,14 @@ public class TmdbService : ITmdbService
 
       if (response.IsSuccessStatusCode)
       {
-         
+
          string jsonResponse = await response.Content.ReadAsStringAsync();
 
          Console.WriteLine(jsonResponse);
-         MovieResponse returnedValues = JsonConvert.DeserializeObject<MovieResponse>(jsonResponse);
-         return returnedValues.FilterResults(returnedValues.Results);
+
+         movieResponse = JsonConvert.DeserializeObject<MovieResponse>(jsonResponse);
+         movieResponse = FilterResults(movieResponse);
+         return movieResponse;
 
       }
       else
@@ -36,6 +39,18 @@ public class TmdbService : ITmdbService
          throw new Exception($"API request failed with status code: {response.StatusCode}");
       }
    }
+
+   public MovieResponse FilterResults(MovieResponse movies)
+   {
+      movies.Results = movies.Results.OrderBy(x => randomizer.Next(1, movies.Results.Count)).Take(3).ToList();
+      return movies;
+   }
+
+   public async Task<Movie> GetMovie(string id)
+   {
+      return await Task.FromResult(movieResponse.Results.FirstOrDefault(m => m.id == id));
+   }
+
 }
 
 

@@ -15,7 +15,15 @@ public class Movie
       get
       {
          const string baseUrl = "https://image.tmdb.org/t/p/w500"; // You can choose different sizes (w92, w185, w500, etc.)
-         return $"{baseUrl}{poster_path}";
+         if(poster_path is not null)
+         {
+            return $"{baseUrl}{poster_path}";
+         }
+         else
+         {
+            return "/Images/ImageComingSoon.png";
+         }
+
       }
    }
 
