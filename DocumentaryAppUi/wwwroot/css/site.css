@@ -1,7 +1,27 @@
 @import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,700;0,900;1,700;1,900&display=swap');
 
 html, body {
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family: 'Roboto',sans-serif;
+    font-size: 18px;
+}
+
+h1,h2,h3,h4,h5,h6{
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900;
+    color: #FFFFFF;
+}
+
+body{
+    background: url(../Images/GenieImage.png) no-repeat center center fixed;
+    background-size:cover;
+    height:100%;
+    color: #000000;
+}
+
+h1{
+    padding-top: 1rem;
 }
 
 h1:focus {
@@ -62,3 +82,167 @@ a, .btn-link {
     .blazor-error-boundary::after {
         content: "An error has occurred."
     }
+
+
+.page-heading{
+    display:flex;
+    justify-content: center;
+    text-align: center;
+}
+
+.generate-conatiner{
+    display:flex;
+    justify-content:center;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.movie-image {
+    border: 2px;
+    border-radius: 10px;
+    padding: 1rem;
+    background-color:#FFFFFF;
+    height: 20rem;
+}
+
+.movie-container-index {
+    justify-content: space-evenly;
+/*    background-color: rgb(128, 128, 128, 0.3);*/
+    border-radius: 10px;
+    padding:1rem,1rem;
+    margin-bottom: 2rem;
+    margin-top: 3rem;
+}
+
+.suggested-movie-container{
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom:2rem; 
+}
+
+.suggested-movie-title{
+    font-size:1.15rem;
+    text-align: center;
+    display: flex;
+    justify-content:center;
+    align-items:center;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    min-height: 100px;
+    max-height: 5vw;
+}
+
+.show-details-button, .generate-button, .generate-more-button {
+    border: solid 5px #FFFFFF;
+    font-size: 1.75rem;
+    font-family: 'Montserrat', sans-serif;
+}
+
+    .generate-button{
+        width:50%;
+        padding:14px,28px;
+    }
+
+        .generate-more-button {
+            width: 50%;
+            padding: 14px,28px;
+            min-width:340px;
+        }
+            .show-details-button{
+                min-width:257px;
+            }
+
+/*.title-and-image {
+    display: flex;
+    flex-direction: column;
+}*/
+
+.selected-movie-title {
+    margin-bottom: 1rem;
+    padding: 3px;
+    border: solid 2px #FFFFFF;
+    border-radius: 15px;
+    background-color: rgb(128, 128, 128, 0.4);
+    text-align: center;
+}
+
+
+.selected-movie-details {
+    display: flex;
+    flex-direction: column;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    padding-right: 10px;
+    max-height: 368px;
+    min-width: 260px;
+    
+}
+
+.movie-image-container{
+    display:flex;
+    align-items:center;
+}
+
+.selected-movie-description{
+    font-family: 'Montserrat',sans-serif;
+    font-size: 0.7rem;
+    color: #FFFFFF;
+}
+
+.selected-movie-year-and-rating {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    font-family: 'Montserrat',sans-serif;
+    font-size: 1.25rem;
+    color: #FFFFFF;
+}
+
+.selected-movie-information {
+    margin-bottom: 1rem;
+    background-color: rgb(128, 128, 128, 0.4);
+    
+}
+
+.selected-movie-date{
+    margin-bottom:1rem;
+}
+
+.selected-movie-rating{
+    margin-bottom: 1rem;
+}
+
+.details-page-container {
+    margin-bottom: 2rem;
+}
+
+@media screen and (max-width: 767px) {
+    .movie-image-container {
+        margin-bottom: 1rem;
+        justify-content: center;
+    }
+    .selected-movie-description{
+        text-align:center;
+    }
+    .description-heading{
+        text-align: center;
+    }
+    .selected-movie-information {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        min-width:100%;
+    }
+    .selected-movie-date {
+        margin-bottom: 1rem;
+        text-align: center;
+
+    }
+
+    .selected-movie-rating {
+        margin-bottom: 1rem;
+        text-align: center;
+    }
+}

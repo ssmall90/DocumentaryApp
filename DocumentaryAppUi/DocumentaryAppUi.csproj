@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <!--<ItemGroup>
+    <Content Remove="Pages\DocumentaryDetails.razor" />
+  </ItemGroup>-->
+
+  <!--<ItemGroup>
     <Content Remove="Pages\SampleData.razor" />
   </ItemGroup>-->
 
@@ -35,7 +39,16 @@
   </ItemGroup>-->
 
   <ItemGroup>
+    <None Include="Pages\DocumentaryDetails.razor" />
     <None Include="Pages\SampleData.razor" />
   </ItemGroup>
+
+  <!--<ItemGroup>
+    <UpToDateCheckInput Remove="Pages\DocumentaryDetails.razor" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Pages\DocumentaryDetails.razor" />
+  </ItemGroup>-->
 
 </Project>

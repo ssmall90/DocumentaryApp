@@ -1,50 +1,39 @@
 ﻿@page "/"
-@using DocumentaryAppLibrary
-@using DocumentaryAppUi
-@using System.Text.Json;
 @inject ITmdbService TmdbService
+@inject NavigationManager navManager
 
-<h1>Popular Movies</h1>
-
-<div>
-    <button class="btn btn-primary" @onclick="GenerateMovies">Generate Movies</button>
-</div>
+<h1 class="page-heading text-uppercase mb-6">Documentary Genie</h1>
 
 @if (movies != null)
 {
-    <ul>
+    <div class="movie-container-index row">
         @foreach (var movie in movies.Results)
         {
-            <div>
-                <h2>Title</h2>
-                <div>
-                    <h5>@movie.title</h5>
-                    <img src="@movie.FullPosterPath"/>
-                </div>
+            <div class="col-sm suggested-movie-container">
                 
-            </div>
-            <div>
+                <img class="movie-image" src="@movie.FullPosterPath" />
+      
+                <h3 class="suggested-movie-title">
+                @movie.title
+                </h3>
+
                 <div>
-                    <h2>Description</h2>
-                    <p>@movie.overview</p>
+                    <button class="show-details-button btn btn-outline-light btn-lg text-uppercase" @onclick="() => OpenDetails(movie)">See Details</button>
                 </div>
             </div>
-            <div>
-                <h2>Release Date</h2>
-                <p>@movie.release_date</p>
-            </div>
-            <div>
-                <h2>Rating</h2>
-                <p>@movie.vote_average</p>
-            </div>
-            
         }
-    </ul>
+    </div>
+    <div class="generate-conatiner">
+        <button class="generate-more-button btn btn-outline-light btn-lg text-uppercase" @onclick="GenerateMovies">Generate More Documentaries</button>
+    </div>
+
 }
 else
 {
     <div>
-        <h2>Press Button To Get Your Documentaries</h2>
+        <div class="generate-conatiner">
+            <button class="generate-button btn btn-outline-light btn-lg text-uppercase" @onclick="GenerateMovies">Generate Documentaries</button>
+        </div>
     </div>
 }
 
@@ -56,4 +45,8 @@ else
         movies = await TmdbService.GetPopularMoviesAsync();
     }
 
+    private void OpenDetails(Movie movie)
+    {
+        navManager.NavigateTo($"/DocumentaryDetails/{movie.id}");
+    }
 }

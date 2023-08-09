@@ -1,0 +1,53 @@
+﻿@page "/DocumentaryDetails/{id}";
+@inject ITmdbService tmdbService
+@inject NavigationManager navManager
+
+
+
+@if (movie is not null)
+{
+    <div class="row g-0 title">
+        <h1 class="selected-movie-title">@movie.title</h1>
+    </div>
+
+
+
+    <div class="selected-movie-information g-0 row ">
+        <div class="movie-image-conatiner col-md-5 col-xl-3 col-lg-4">
+            <div class="movie-image-container"><img class="movie-image" src="@movie.FullPosterPath"></div>
+        </div>
+        <div class="selected-movie-details col-md-7 col-xl-9 col-lg-8 col-sm-12">
+            <h3 class="description-heading">Description</h3>
+            <div class="selected-movie-description">@movie.overview</div>
+        </div>
+
+    </div>
+
+
+
+    <div class="selected-movie-year-and-rating">
+        <div class="selected-movie-date">Release Date - @movie.release_date</div>
+        <div class="selected-movie-rating">Genie Rating - @movie.vote_average</div>
+    </div>
+}
+        else
+        {
+            <div>No Movie Found</div>
+        }
+
+@code {
+    [Parameter]
+    public string id { get; set; }
+
+    private Movie movie;
+
+    protected async override Task OnInitializedAsync()
+    {
+        movie = await tmdbService.GetMovie(id);
+    }
+
+    private void ClosePage()
+    {
+        navManager.NavigateTo("/");
+    }
+}
