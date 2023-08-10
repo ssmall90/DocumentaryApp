@@ -1,6 +1,7 @@
 ﻿@page "/DocumentaryDetails/{id}";
 @inject ITmdbService tmdbService
 @inject NavigationManager navManager
+@inject IMovieData movieData
 
 
 
@@ -8,6 +9,10 @@
 {
     <div class="row g-0 title">
         <h1 class="selected-movie-title">@movie.title</h1>
+    </div>
+
+    <div class="row close-button">
+        <div class=" btn btn-close btn-close-white" @onclick="ClosePage"></div>
     </div>
 
 
@@ -29,25 +34,59 @@
         <div class="selected-movie-date">Release Date - @movie.release_date</div>
         <div class="selected-movie-rating">Genie Rating - @movie.vote_average</div>
     </div>
-}
-        else
+
+    @if(similarMovies is not null)
+    {
+        @foreach(var movie in similarMovies)
         {
-            <div>No Movie Found</div>
+            <div class="col-sm suggested-movie-container">
+
+                <img class="movie-image" src="@movie.FullPosterPath" @onclick="() => OpenDetails(movie)" />
+
+                <h3 class="suggested-movie-title">
+                    @movie.title
+                </h3>
+
+                <div>
+                    <button class="show-details-button btn btn-outline-light btn-lg text-uppercase" @onclick="() => OpenDetails(movie)">See Details</button>
+                </div>
+            </div>
         }
+
+    }
+
+}
+else
+{
+    <div class=" row close-button btn btn-close btn-close-white" @onclick="ClosePage">
+    </div>
+    <div>No Movie Found</div>
+}
+
 
 @code {
     [Parameter]
     public string id { get; set; }
+    List<Movie> similarMovies;
+    Movie movie;
 
-    private Movie movie;
 
     protected async override Task OnInitializedAsync()
     {
         movie = await tmdbService.GetMovie(id);
+        similarMovies = await tmdbService.GetSimilarMovies(id);
     }
+
+
+    private void OpenDetails(Movie movie)
+    {
+        navManager.NavigateTo($"/DocumentaryDetails/{movie.id}");
+    }
+
 
     private void ClosePage()
     {
-        navManager.NavigateTo("/");
+
+        navManager.NavigateTo("/SuggestedMovies");
     }
 }

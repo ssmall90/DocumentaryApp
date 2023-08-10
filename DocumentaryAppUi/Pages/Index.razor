@@ -1,49 +1,36 @@
 ﻿@page "/"
 @inject ITmdbService TmdbService
 @inject NavigationManager navManager
+@inject IMovieData movieData
 
-<h1 class="page-heading text-uppercase mb-6">Documentary Genie</h1>
+<div class="index-container">
+    <div class="index-page-content">
 
-@if (movies != null)
-{
-    <div class="movie-container-index row">
-        @foreach (var movie in movies.Results)
-        {
-            <div class="col-sm suggested-movie-container">
-                
-                <img class="movie-image" src="@movie.FullPosterPath" />
-      
-                <h3 class="suggested-movie-title">
-                @movie.title
-                </h3>
-
-                <div>
-                    <button class="show-details-button btn btn-outline-light btn-lg text-uppercase" @onclick="() => OpenDetails(movie)">See Details</button>
-                </div>
-            </div>
-        }
-    </div>
-    <div class="generate-conatiner">
-        <button class="generate-more-button btn btn-outline-light btn-lg text-uppercase" @onclick="GenerateMovies">Generate More Documentaries</button>
-    </div>
-
-}
-else
-{
-    <div>
+        <h1 class="page-heading text-uppercase mb-6">Documentary Genie</h1>
         <div class="generate-conatiner">
-            <button class="generate-button btn btn-outline-light btn-lg text-uppercase" @onclick="GenerateMovies">Generate Documentaries</button>
+            <button class="generate-more-button btn btn-outline-light btn-lg text-uppercase" @onclick="GenerateMovies">Generate Documentaries</button>
         </div>
+
     </div>
-}
+</div>
+
+
+
+
+
 
 @code {
     MovieResponse movies;
 
+
     private async Task GenerateMovies()
     {
         movies = await TmdbService.GetPopularMoviesAsync();
+        movieData.SetMovies(movies);
+        navManager.NavigateTo("/SuggestedMovies");
+
     }
+
 
     private void OpenDetails(Movie movie)
     {

@@ -15,6 +15,7 @@ public static class RegisterServices
       builder.Services.AddSingleton<IMongoUserData, MongoUserData>();
       builder.Services.AddScoped<ITmdbService, TmdbService>();
       builder.Services.AddHttpClient();
+      builder.Services.AddScoped<IMovieData, MovieData>();
    }
 
 }
