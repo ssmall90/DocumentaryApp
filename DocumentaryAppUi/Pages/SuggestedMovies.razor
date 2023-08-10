@@ -1,0 +1,68 @@
+﻿@page "/SuggestedMovies"
+@inject ITmdbService TmdbService
+@inject NavigationManager navManager
+@inject IMovieData movieData
+
+<h3>SuggestedMovies</h3>
+
+@if (movieData.GetMovies != null )
+{
+    <div class="movie-container-index row">
+        @foreach (var movie in movieData.Results)
+        {
+            <div class="col-sm suggested-movie-container">
+
+                <img class="movie-image" src="@movie.FullPosterPath" @onclick="() => OpenDetails(movie)" />
+
+                <h3 class="suggested-movie-title">
+                    @movie.title
+                </h3>
+
+                <div>
+                    <button class="show-details-button btn btn-outline-light btn-lg text-uppercase" @onclick="() => OpenDetails(movie)">See Details</button>
+                </div>
+            </div>
+        }
+    </div>
+    <div class="generate-conatiner">
+        <button class="generate-more-button btn btn-outline-light btn-lg text-uppercase" @onclick="LoadSuggestions">Generate More Documentaries</button>
+    </div>
+
+}
+else
+{
+    <h2>no movies found</h2>
+}
+
+@code {
+    MovieResponse movies;
+    List<Movie> similarMovies;
+
+    private async Task OnInitializedAsync()
+    {
+        LoadState();
+    }
+
+    private async Task LoadSuggestions()
+    {
+        movies = await TmdbService.GetPopularMoviesAsync();
+        SaveState();
+    }
+
+    private void SaveState()
+    {
+        movies = movieData.SetMovies(movies);
+    }
+
+    private void LoadState()
+    {
+        movies = movieData.GetMovies();
+    }
+
+    private async Task OpenDetails(Movie movie)
+    {
+
+        navManager.NavigateTo($"/DocumentaryDetails/{movie.id}");
+    }
+}
+
