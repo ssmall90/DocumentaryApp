@@ -35,24 +35,36 @@
         <div class="selected-movie-rating">Genie Rating - @movie.vote_average</div>
     </div>
 
-    @if(similarMovies is not null)
+    @if(similarMovies is not null && similarMovies.Count > 0)
     {
-        @foreach(var movie in similarMovies)
-        {
-            <div class="col-sm suggested-movie-container">
+        <div class="row mb-4 text-uppercase similar-suggestions-title ">
+            <h3>Similar Movies You Might Like</h3>
+        </div>
+        <div class="suggested-similar-movies-container row sm">
+            @foreach (var movie in similarMovies)
+            {
+                <div class="col-sm suggested-movie-container">
 
-                <img class="movie-image" src="@movie.FullPosterPath" @onclick="() => OpenDetails(movie)" />
+                    <img class="movie-image" src="@movie.FullPosterPath" @onclick="() => OpenDetailsOfSimilarMovie(movie)" />
 
-                <h3 class="suggested-movie-title">
-                    @movie.title
-                </h3>
+                    <h3 class="suggested-movie-title">
+                        @movie.title
+                    </h3>
 
-                <div>
-                    <button class="show-details-button btn btn-outline-light btn-lg text-uppercase" @onclick="() => OpenDetails(movie)">See Details</button>
+                    <div>
+                        <button class="show-details-button btn btn-outline-light btn-lg text-uppercase" @onclick="() => OpenDetailsOfSimilarMovie(movie)">See Details</button>
+                    </div>
                 </div>
-            </div>
-        }
+            }
+        </div>
 
+
+    }
+    else
+    {
+        <div class="row mb-4 text-uppercase similar-suggestions-title">
+            <h3>No Similar Suggestions Availabe For This Movie</h3>
+        </div>
     }
 
 }
@@ -75,11 +87,24 @@ else
     {
         movie = await tmdbService.GetMovie(id);
         similarMovies = await tmdbService.GetSimilarMovies(id);
+        movieData.SetSimilarMovies(similarMovies);
+
+    }
+
+    private async Task OpenDetailsOfSimilarMovie(Movie pMovie)
+    {
+        Movie selectedMovie;
+        selectedMovie = await tmdbService.GetMovieFromSimilarResponse(pMovie.id);
+        movie = selectedMovie;
+        similarMovies = await tmdbService.GetSimilarMovies(movie.id);
+        navManager.NavigateTo($"/DocumentaryDetails/{movie.id}");
+
     }
 
 
     private void OpenDetails(Movie movie)
     {
+
         navManager.NavigateTo($"/DocumentaryDetails/{movie.id}");
     }
 

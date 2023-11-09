@@ -98,7 +98,6 @@ a, .btn-link {
     text-align: center;
 }
     
-}
 
 .page-heading {
     display: flex;
@@ -244,6 +243,15 @@ a, .btn-link {
 .close-button div{
     padding: 10px;
     margin-right: 12px;
+}
+
+.suggested-movie-heading{
+    text-align: center;
+}
+
+.similar-suggestions-title {
+    margin-top: 2rem;
+    text-align: center;
 }
 
 @media screen and (max-width: 767px) {

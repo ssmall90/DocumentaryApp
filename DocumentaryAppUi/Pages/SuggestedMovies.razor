@@ -3,7 +3,7 @@
 @inject NavigationManager navManager
 @inject IMovieData movieData
 
-<h3>SuggestedMovies</h3>
+<h3 class="suggested-movie-heading">SuggestedMovies</h3>
 
 @if (movieData.GetMovies != null )
 {
@@ -46,6 +46,7 @@ else
     private async Task LoadSuggestions()
     {
         movies = await TmdbService.GetPopularMoviesAsync();
+        movieData.SetMovies(movies);
         SaveState();
     }
 
