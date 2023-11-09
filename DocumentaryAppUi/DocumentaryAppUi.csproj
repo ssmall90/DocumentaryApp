@@ -40,7 +40,6 @@
 
   <ItemGroup>
     <None Include="Pages\DocumentaryDetails.razor" />
-    <None Include="Pages\SampleData.razor" />
   </ItemGroup>
 
   <!--<ItemGroup>

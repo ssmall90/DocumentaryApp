@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Net.Http;
 using System.Threading.Tasks;
+using DocumentaryAppLibrary.Models;
 using Newtonsoft.Json;
 using static System.Net.WebRequestMethods;
 

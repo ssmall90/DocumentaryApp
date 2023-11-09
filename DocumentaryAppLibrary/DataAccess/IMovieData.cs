@@ -1,4 +1,6 @@
-﻿namespace DocumentaryAppLibrary.DataAccess;
+﻿using DocumentaryAppLibrary.Models;
+
+namespace DocumentaryAppLibrary.DataAccess;
 
 public interface IMovieData
 {

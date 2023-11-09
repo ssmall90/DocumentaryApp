@@ -1,4 +1,6 @@
-﻿public interface ITmdbService
+﻿using DocumentaryAppLibrary.Models;
+
+public interface ITmdbService
 {
    MovieResponse FilterResults(MovieResponse movies);
    Task<Movie> GetMovie(string id);
