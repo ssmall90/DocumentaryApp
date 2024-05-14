@@ -17,7 +17,7 @@ Welcome to the Documentary Explorer app! This Blazor server application allows u
   
 ## Hosting
 
-The Documentary Explorer app is hosted on Azure. You can access it at [documentary-genie.azurewebsites.net](https://documentary-genie.azurewebsites.net).
+The Documentary Explorer app is hosted on Azure. You can access it at [documentary-genie.azurewebsites.net](https://documentarygenie.azurewebsites.net).
 
 ## Contributing
 
