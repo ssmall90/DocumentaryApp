@@ -30,8 +30,6 @@ public class TmdbService : ITmdbService
 
          string jsonResponse = await response.Content.ReadAsStringAsync();
 
-         Console.WriteLine(jsonResponse);
-
          movieResponse = JsonConvert.DeserializeObject<MovieResponse>(jsonResponse);
          movieResponse = FilterResults(movieResponse);
          return movieResponse;
@@ -70,7 +68,7 @@ public class TmdbService : ITmdbService
       {
          throw new Exception($"API request failed with status code: {response.StatusCode}");
       }
-      //return await Task.FromResult(similarMovieResponse.Results.FirstOrDefault(m => m.id == id));
+
    }
 
 
@@ -86,8 +84,6 @@ public class TmdbService : ITmdbService
       {
 
          string jsonResponse = await response.Content.ReadAsStringAsync();
-
-         Console.WriteLine(jsonResponse);
 
          similarMovieResponse = JsonConvert.DeserializeObject<MovieResponse>(jsonResponse);
          similarMovieResponse = FilterResults(similarMovieResponse);
